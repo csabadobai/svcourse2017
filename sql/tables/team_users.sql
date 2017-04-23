@@ -1,4 +1,4 @@
-CREATE TABLE `hunt_team_users` (
+CREATE TABLE `team_users` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
  `team_id` int(11) NOT NULL,
  `user_id` int(11) NOT NULL,

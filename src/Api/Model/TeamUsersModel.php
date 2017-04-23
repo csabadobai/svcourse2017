@@ -13,7 +13,7 @@ use Course\Services\Persistence\MySql;
 class TeamUsersModel extends ActiveRecord
 {
     private static $config = [
-        self::CONFIG_TABLE_NAME => 'hunt_team_users',
+        self::CONFIG_TABLE_NAME => 'team_users',
         self::CONFIG_PRIMARY_KEYS => ['id'],
         self::CONFIG_DB_COLUMNS => ['id', 'team_id', 'user_id', 'hunt_id'],
     ];
@@ -90,5 +90,12 @@ class TeamUsersModel extends ActiveRecord
         }
 
         return $this->userModel;
+    }
+
+    public static function insert(int $teamId, int $userId, int $huntId)
+    {
+        $results = MySql::insert(self::getTableName(), ['team_id' => $teamId, 'user_id' => $userId, 'hunt_id' => $huntId]);
+
+        return $results;
     }
 }

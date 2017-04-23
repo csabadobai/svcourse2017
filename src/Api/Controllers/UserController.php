@@ -29,10 +29,12 @@ class UserController implements Controller
         $body = Request::getJsonBody();
 
         try {
+            Precondition::isNotEmpty($body->username, 'username');
+            Precondition::isNotEmpty($body->password, 'password');
             Precondition::lengthIsBetween($body->username, 4, 20, 'username');
             Precondition::lengthIsBetween($body->password, 6, 20, 'password');
         } catch (PreconditionException $e) {
-            Response::showErrorResponse(ErrorCodes::INVALID_PARAMETER, $e->getMessage());
+            Response::showErrorResponse($e->getCode(), $e->getMessage());
         }
 
         if (UserModel::usernameExists($body->username)) {

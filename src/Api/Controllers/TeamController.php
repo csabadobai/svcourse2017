@@ -12,13 +12,13 @@ namespace Course\Api\Controllers;
 use Course\Api\Exceptions\Precondition;
 use Course\Api\Exceptions\PreconditionException;
 use Course\Api\Model\TeamsModel;
+use Course\Api\Model\TeamUsersModel;
 use Course\Api\Model\UserModel;
 use Course\Services\Http\Exceptions\HttpException;
 use Course\Services\Http\HttpConstants;
 use Course\Services\Http\Request;
 use Course\Services\Http\Response;
 use Course\Services\Persistence\Exceptions\NoResultsException;
-use Course\Services\Utils\StringUtils;
 
 class TeamController implements Controller
 {
@@ -33,24 +33,34 @@ class TeamController implements Controller
     {
         $request = Request::getJsonBody();
         $name = $request->name;
+        $huntId = $request->huntId;
 
-        if (strlen($request->name) < 4) {
-            Response::showErrorResponse(
-                ErrorCodes::INVALID_PARAMETER,
-                'team name length should be 4 or greater'
-            );
+        try {
+            Precondition::lengthIsBetween($name, 4, 20, 'name');
+            Precondition::isNotEmpty($huntId, 'huntId');
+            Precondition::isNotEmpty($name, 'name');
+        } catch (PreconditionException $e) {
+            throw new PreconditionException($e->getCode(), $e->getMessage());
         }
+
+//        if (strlen($request->name) < 4)
+//        {
+//            Response::showErrorResponse(ErrorCodes::INVALID_PARAMETER,'team name length should be 4 or greater');
+//        }
 
         try {
             $userModel = UserModel::loadUserFromSession();
         } catch (NoResultsException $e) {
-            Response::showErrorResponse(
-                ErrorCodes::USER_NOT_LOGGED_ID,
-                'user is not logged in'
-            );
+            Response::showErrorResponse(ErrorCodes::USER_NOT_LOGGED_ID,'user is not logged in');
         }
 
         $teamModel = TeamsModel::create($name, $userModel->id);
+
+        if(empty($huntId)){
+            Response::showErrorResponse(ErrorCodes::INVALID_PARAMETER, 'huntId parameter is null');
+        } else {
+            TeamUsersModel::insert($teamModel->id, $userModel->id, $huntId);
+        }
 
         Response::showSuccessResponse('team created', ['teamId' => $teamModel->id]);
     }

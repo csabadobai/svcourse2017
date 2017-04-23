@@ -58,5 +58,4 @@ class HuntModel extends ActiveRecord
         return $huntModelList;
 
     }
-
 }

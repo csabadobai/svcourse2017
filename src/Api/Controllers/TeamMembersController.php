@@ -12,6 +12,8 @@ use Course\Api\Exceptions\Precondition;
 use Course\Api\Exceptions\PreconditionException;
 use Course\Api\Model\TeamUsersModel;
 use Course\Services\Http\Response;
+use Course\Services\Http\HttpConstants;
+use Course\Services\Http\Exceptions\HttpException;
 
 class TeamMembersController implements Controller
 {
@@ -41,14 +43,14 @@ class TeamMembersController implements Controller
     }
     public function create()
     {
-
+        throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
     }
     public function update()
     {
-
+        throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
     }
     public function delete()
     {
-
+        throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
     }
 }
