@@ -58,4 +58,16 @@ class TeamsModel extends ActiveRecord
         return new static($result);
 
     }
+    
+    /**
+     * @param int $teamId
+     * 
+     * @return self
+     */
+    public static function getTeamOwner(int $teamId) : self
+    {
+        $result = MySql::getOne(self::getTableName(), ['id' => $teamId]);
+                
+        return new self($result);
+    }
 }

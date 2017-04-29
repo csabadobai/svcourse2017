@@ -48,7 +48,7 @@ class UserLoginController implements Controller
             Response::showErrorResponse(ErrorCodes::USER_LOGIN_INCORRECT_PASSWORD, 'incorrect password');
         }
 
-        session_start(['cookie_lifetime' => 86400]);
+        // session_start(['cookie_lifetime' => 86400]);
         $_SESSION['userId'] = $userModel->id;
 
         Response::showSuccessResponse('user authenticated', ['userId' => $userModel->id, 'authorizationToken' => StringUtils::encryptData($userModel)]);

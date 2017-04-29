@@ -31,8 +31,6 @@ class TeamJoinController
     public function create()
     {
         $request = Request::getJsonBody();
-        $teamId = $request->teamId;
-        $huntId = $request->huntId;
 
         try {
             $userModel = UserModel::loadUserFromSession();
@@ -43,19 +41,19 @@ class TeamJoinController
         $userId = $userModel->id;
 
         try {
-            Precondition::isNotEmpty($teamId, 'teamId');
-            Precondition::isNotEmpty($huntId, 'huntId');
+            Precondition::isNotEmpty($request->teamId, 'teamId');
+            Precondition::isNotEmpty($request->huntId, 'huntId');
         } catch (PreconditionException $e) {
-            throw new PreconditionException($e->getCode(), $e->getMessage());
+            Response::showErrorResponse($e->getCode(), $e->getMessage());
         }
 
         try {
-            $teamUsersModel = TeamUsersModel::insert($teamId, $userId, $huntId);
+            TeamUsersModel::insert($request->teamId, $userId, $request->huntId);
         } catch (QueryException $e) {
-            Response::showErrorResponse(ErrorCodes::BAD_REQUEST, 'user already a member of the team');
+            Response::showErrorResponse(ErrorCodes::ALREADY_MEMBER, 'user already a member of the team');
         }
 
-        Response::showSuccessResponse('team joined', ['teamUserId' => $teamUsersModel->id]);
+        Response::showSuccessResponse('team joined');
     }
 
     // Handler for HTTP PUT methods

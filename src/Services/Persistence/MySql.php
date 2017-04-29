@@ -118,4 +118,15 @@ class MySql
         return $result;
 
     }
+    
+    public static function update(string $tableName, string $columnName, $value, array $where)
+    {
+        $sql = 'UPDATE `' . $tableName .'` SET `' . $columnName . '`="' . $value . '" WHERE ';
+
+        foreach ($where as $colName => $colValue) {
+            $sql .= '`' . $colName . '` = "' . $colValue . '"';
+        }
+                
+        self::query($sql);
+    }
 }
