@@ -32,15 +32,13 @@ class TeamController implements Controller
     public function create()
     {
         $request = Request::getJsonBody();
-        $name = $request->name;
-        $huntId = $request->huntId;
 
         try {
-            Precondition::lengthIsBetween($name, 4, 20, 'name');
-            Precondition::isNotEmpty($huntId, 'huntId');
-            Precondition::isNotEmpty($name, 'name');
+            Precondition::isNotEmpty($request->huntId, 'huntId');
+            Precondition::isNotEmpty($request->name, 'name');
+            Precondition::lengthIsBetween($request->name, 4, 20, 'name');
         } catch (PreconditionException $e) {
-            throw new PreconditionException($e->getCode(), $e->getMessage());
+            Response::showErrorResponse($e->getCode(), $e->getMessage());
         }
 
 //        if (strlen($request->name) < 4)
@@ -54,13 +52,13 @@ class TeamController implements Controller
             Response::showErrorResponse(ErrorCodes::USER_NOT_LOGGED_ID,'user is not logged in');
         }
 
-        $teamModel = TeamsModel::create($name, $userModel->id);
+        $teamModel = TeamsModel::create($request->name, $userModel->id);
 
-        if(empty($huntId)){
+        if(empty($request->huntId)){
             Response::showErrorResponse(ErrorCodes::INVALID_PARAMETER, 'huntId parameter is null');
-        } else {
-            TeamUsersModel::insert($teamModel->id, $userModel->id, $huntId);
         }
+        
+        TeamUsersModel::insert($teamModel->id, $userModel->id, $request->huntId);
 
         Response::showSuccessResponse('team created', ['teamId' => $teamModel->id]);
     }

@@ -21,6 +21,10 @@ class ErrorCodes
 
     const USER_LOGIN_USERNAME_DOES_NOT_EXIST = 200;
     const USER_LOGIN_INCORRECT_PASSWORD = 201;
-
+    
+    const TEAM_DOES_NOT_EXIST = 300;
+    const ALREADY_MEMBER = 301;
+    const NOT_OWNER = 302;
+    
     const USER_NOT_LOGGED_ID = 401;
 }

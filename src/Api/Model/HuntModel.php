@@ -42,7 +42,7 @@ class HuntModel extends ActiveRecord
      * @param string $state
      *
      * @return HuntModel[]
-     * @throws \Course\Api\Exceptions\PreconditionException
+     * @throws PreconditionException
      */
     public static function loadByState(string $state): array
     {
