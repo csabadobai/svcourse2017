@@ -12,6 +12,8 @@ namespace Course\Api\Controllers;
 use Course\Api\Exceptions\Precondition;
 use Course\Api\Exceptions\PreconditionException;
 use Course\Api\Model\ChallengeModel;
+use Course\Services\Http\Exceptions\HttpException;
+use Course\Services\Http\HttpConstants;
 use Course\Services\Http\Request;
 use Course\Services\Http\Response;
 
@@ -20,7 +22,9 @@ class ChallengeController implements Controller
 
     public function get()
     {
-        // TODO: Implement get() method.
+        {
+            throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
+        }
     }
 
     public function create()
@@ -46,11 +50,15 @@ class ChallengeController implements Controller
 
     public function update()
     {
-        // TODO: Implement update() method.
+        {
+            throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
+        }
     }
 
     public function delete()
     {
-        // TODO: Implement delete() method.
+        {
+            throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
+        }
     }
 }

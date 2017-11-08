@@ -12,6 +12,8 @@ namespace Course\Api\Controllers;
 use Course\Api\Exceptions\Precondition;
 use Course\Api\Exceptions\PreconditionException;
 use Course\Api\Model\ChallengeModel;
+use Course\Services\Http\Exceptions\HttpException;
+use Course\Services\Http\HttpConstants;
 use Course\Services\Http\Response;
 
 class ChallengesController implements Controller
@@ -31,13 +33,13 @@ class ChallengesController implements Controller
         $name = $_GET['name'];
         $data = [];
 
-        if(!is_null($type)) {
+        if (!is_null($type)) {
             if (!is_integer($type)) {
                 Response::showErrorResponse(ErrorCodes::INVALID_PARAMETER, 'type parameter should be of integer type');
             } else {
                 $data[] = ChallengeModel::loadByType($type);
             }
-        } elseif(!is_null($name)) {
+        } elseif (!is_null($name)) {
             $data[] = ChallengeModel::loadByName($name);
         }
 
@@ -46,16 +48,22 @@ class ChallengesController implements Controller
 
     public function create()
     {
-        // TODO: Implement create() method.
+        {
+            throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
+        }
     }
 
     public function update()
     {
-        // TODO: Implement update() method.
+        {
+            throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
+        }
     }
 
     public function delete()
     {
-        // TODO: Implement delete() method.
+        {
+            throw new HttpException('Method Now Allowed', HttpConstants::STATUS_CODE_METHOD_NOT_ALLOWED);
+        }
     }
 }

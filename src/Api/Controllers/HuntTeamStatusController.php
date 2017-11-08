@@ -56,9 +56,6 @@ class HuntTeamStatusController implements Controller
         // assign the team owner to a variable
         $teamModel = TeamsModel::getTeamOwner($body->teamId);
         
-//        var_dump($teamModel);
-//        die();
-        
         $owner = $teamModel->owner_id;
         
         // verify that the current user is the owner of the team
@@ -66,11 +63,6 @@ class HuntTeamStatusController implements Controller
         {
             Response::showErrorResponse(ErrorCodes::NOT_OWNER, 'user is not the owner of this team');
         }
-        
-//        $teamUsersModel = TeamUsersModel::loadByTeamId($body->teamId);
-//        
-//        var_dump($teamUsersModel);
-//        die();
         
         TeamUsersModel::updateTeamStatus($body->teamId, $body->status);
                 
