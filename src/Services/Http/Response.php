@@ -44,6 +44,11 @@ class Response
         $response->displayJsonResponse();
     }
 
+    public static function showUnauthorizedErrorResponse(int $errorCode, string $message){
+        $response = new Response(HttpConstants::STATUS_CODE_UNAUTHENTICATED, 'Unauthorized', ['errorCode' => $errorCode, 'errorMessage' => $message]);
+        $response->displayJsonResponse();
+    }
+
     public static function showInternalErrorResponse(int $errorCode, string $message)
     {
         $response = new Response(HttpConstants::STATUS_CODE_INTERNAL_SERVER_ERROR, 'Internal Server Error', ['errorCode' => $errorCode, 'errorMessage' => $message]);

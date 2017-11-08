@@ -35,7 +35,7 @@ class TeamJoinController
         try {
             $userModel = UserModel::loadUserFromSession();
         } catch (NoResultsException $e) {
-            Response::showErrorResponse(ErrorCodes::USER_NOT_LOGGED_ID, 'user is not logged in');
+            Response::showErrorResponse(ErrorCodes::USER_NOT_LOGGED_IN, 'user is not logged in');
         }
 
         $userId = $userModel->id;

@@ -26,5 +26,5 @@ class ErrorCodes
     const ALREADY_MEMBER = 301;
     const NOT_OWNER = 302;
     
-    const USER_NOT_LOGGED_ID = 401;
+    const USER_NOT_LOGGED_IN = 401;
 }

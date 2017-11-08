@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -17,12 +17,10 @@ use Course\Api\Exceptions\PreconditionException;
 use Course\Api\Exceptions\Precondition;
 use Course\Services\Persistence\Exceptions\NoResultsException;
 use Course\Api\Model\TeamsModel;
-use Course\Api\Controllers\ErrorCodes;
 use Course\Api\Model\TeamUsersModel;
-use Course\Services\Persistence\Exceptions\QueryException;
 
 /**
- * Description of HuntTeamState
+ * Description of HuntTeamStatus
  *
  * @author csaba.dobai
  */

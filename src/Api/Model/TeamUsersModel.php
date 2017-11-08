@@ -71,9 +71,13 @@ class TeamUsersModel extends ActiveRecord
         $results = MySql::getMany(self::getTableName(), ['team_id' => $teamId]);
         $models  = [];
 
+
         foreach ($results as $result) {
             $models[] = new static($result);
         }
+//        var_dump($models);
+//        die();
+
         return $models;
     }
 
@@ -81,7 +85,7 @@ class TeamUsersModel extends ActiveRecord
     /**
      * @return TeamsModel
      */
-    public function getTeamModel()
+    public function getTeamModel(): TeamsModel
     {
         if(is_null($this->teamModel)) {
             $this->teamModel = TeamsModel::getById($this->team_id);
@@ -102,21 +106,20 @@ class TeamUsersModel extends ActiveRecord
         return $this->userModel;
     }
 
-    public static function insert(int $teamId, int $userId, int $huntId, $status)
+    public static function insert(int $teamId, int $userId, int $huntId)
     {
-        Precondition::isTrue(in_array($status, self::STATUS), 'The status is not valid');
-        
-        if(!isset($status)) {
-            $status = self::STATE_NOT_READY;
-        }
+//        Precondition::isTrue(in_array($status, self::STATUS), 'The status is not valid');
+//
+//        if(!isset($status)) {
+//            $status = self::STATUS_NOT_READY;
+//        }
         
         $results = MySql::insert(
                 self::getTableName(), 
                 [
                     'team_id' => $teamId, 
                     'user_id' => $userId, 
-                    'hunt_id' => $huntId, 
-                    'status' => $status
+                    'hunt_id' => $huntId
                 ]);
 
         return $results;

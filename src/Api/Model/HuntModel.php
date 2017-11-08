@@ -44,18 +44,42 @@ class HuntModel extends ActiveRecord
      * @return HuntModel[]
      * @throws PreconditionException
      */
-    public static function loadByState(string $state): array
+    public static function loadByState(string $state)
     {
         Precondition::isTrue(in_array($state, self::STATES), 'The state is not valid');
 
         $huntModelList = [];
         $results = MySql::getMany(self::getTableName(), ['state' => $state]);
 
-        foreach ($results as $result){
+        foreach ($results as $result) {
             $huntModelList[] = new static($result);
         }
 
         return $huntModelList;
+    }
 
+    /**
+     * @return array
+     */
+    public static function loadAll(): array
+    {
+        $allHuntsList = [];
+        $results = MySql::getAll(self::getTableName());
+
+        foreach ($results as $result) {
+            $allHuntsList[] = new static($result);
+        }
+
+        return $allHuntsList;
+    }
+
+    /**
+     * @param string $name
+     * @return int
+     */
+    public static function insert(string $name)
+    {
+        $result = MySql::insert(self::getTableName(), ['name' => $name]);
+        return $result;
     }
 }

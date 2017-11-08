@@ -8,7 +8,6 @@
 
 namespace Course\Api\Exceptions;
 
-
 use Course\Api\Controllers\ErrorCodes;
 
 class Precondition

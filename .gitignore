@@ -3,3 +3,4 @@ Thumbs.db
 vendor/
 composer.lock
 config.php
+/nbproject/private/

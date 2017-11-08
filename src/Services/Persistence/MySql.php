@@ -129,4 +129,16 @@ class MySql
                 
         self::query($sql);
     }
+
+    public static function getAll(string $tableName) {
+        $sql = 'SELECT * FROM `' . $tableName . '`';
+
+        $result = mysqli_fetch_all(self::query($sql), MYSQLI_ASSOC);
+
+        if (empty($result)){
+            throw new NoResultsException('no results in table ' . $tableName . '.');
+        }
+
+        return $result;
+    }
 }
